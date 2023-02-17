@@ -45,16 +45,6 @@ const personGenerator = {
             "id_5": "Екатерина"
         }
     }`,
-    firstShirdNameJson: `{
-        "count": 5,
-        "list": {     
-            "id_1": "Ивано",
-            "id_2": "Максимо",
-            "id_3": "Андрее",
-            "id_4": "Дмитрие",
-            "id_5": "Егоро"
-        }
-    }`,
     firstProfMaleJson: `{
         "count": 5,
         "list": {     
@@ -173,10 +163,36 @@ const personGenerator = {
 
     randomThirdName: function() {
 
+        var newThirdName = this.randomValue(this.firstNameMaleJson);
+        const lastLetter = newThirdName[newThirdName.length - 1];
+
+        switch(lastLetter){
+            case "а":
+                newThirdName = newThirdName.slice(0, newThirdName.length - 1) + "о";
+                break;
+            case "й":
+            case "и":
+                newThirdName = newThirdName.slice(0, newThirdName.length - 1) + "e";
+                break;
+            case "ж":
+            case "ш":
+            case "ч":
+            case "щ":
+            case "ь":
+                newThirdName = newThirdName + "е";
+                break;
+            case "е":
+            case "o":
+                break; 
+            default:
+                newThirdName = newThirdName + "о";
+                break;
+        }
+
         if(this.person.gender == 'Мужчина'){
-            return this.randomValue(this.firstShirdNameJson) + "вич";
+            return newThirdName + "вич";
         }else{
-            return this.randomValue(this.firstShirdNameJson) + "вна";
+            return newThirdName + "вна";
         }
 
     },
